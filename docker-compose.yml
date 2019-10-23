@@ -25,16 +25,16 @@ services:
       - "33060:3306"
     environment: 
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: hadabaki
+      MYSQL_USER: homestead
       MYSQL_DATABASE: elearning
-      MYSQL_PASSWORD: 123456
+      MYSQL_PASSWORD: homestead
     volumes: 
-      - elearning:/var/lib/mysql
+      - mysqldata:/var/lib/mysql:rw,delegated
     networks: 
       - app-network
 
 volumes: 
-  elearning:
+  mysqldata:
 
 networks: 
   app-network:

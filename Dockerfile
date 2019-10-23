@@ -6,4 +6,7 @@ RUN apt-get update && apt-get install -y libmcrypt-dev \
     && docker-php-ext-enable imagick \
     && docker-php-ext-install pdo_mysql
 
-
+RUN apt install zip unzip 
+RUN apt-get install -y curl
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt install -y git
