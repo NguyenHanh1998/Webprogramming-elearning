@@ -1,6 +1,7 @@
 <template>
     <div>
         <p>{{this.value}}</p>
+        <el-button type="danger">Hello</el-button>
     </div>
 </template>
 
