@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/**
+ * All router uri will render master.blade.php 
+ */
+$router->get('{all}', function () {
+    return view('master');
+})->where(['all' => '.*']);
