@@ -70,4 +70,9 @@ class AuthController extends Controller
     {
         return response(JWTAuth::getToken(), Response::HTTP_OK);
     }
+
+    public function testDB()
+    {
+        dd(User::all());
+    }
 }
