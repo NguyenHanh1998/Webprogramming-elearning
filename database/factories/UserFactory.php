@@ -20,8 +20,12 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'role' => rand(1, 2),
+        'role' => $faker->randomElement(array(1, 2)),
         'email_verified_at' => now(),
         'password' => bcrypt("123456"),
+        'address' => $faker->address,
+        'phone' => $faker->phoneNumber,
+        'dob' => $faker->dateTimeBetween('1990-01-01', '2012-12-31')->format('d/m/Y'),
+        'balance' => $faker->randomFloat(3, 0, 2000)
     ];
 });

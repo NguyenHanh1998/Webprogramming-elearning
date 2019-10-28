@@ -19,9 +19,9 @@ class CreateCoursesTable extends Migration
             $table->integer('fee');
             $table->string('cover');
             $table->string('ava');
-            $table->string('description');
-            $table->string('requirement');
-            $table->string('learnable');
+            $table->text('description');
+            $table->text('requirement');
+            $table->text('learnable');
             $table->timestamps();
         });
     }
