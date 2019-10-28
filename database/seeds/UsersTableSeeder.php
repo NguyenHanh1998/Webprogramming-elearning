@@ -48,6 +48,6 @@ class UsersTableSeeder extends Seeder
             'dob' => $faker->dateTimeBetween('1990-01-01', '2012-12-31')->format('d/m/Y'),
             'balance' => $faker->randomFloat(3, 0, 2000)
         ]);
-        factory(App\Models\User::class, 40)->create();
+        factory(App\Models\User::class, 100)->create();
     }
 }

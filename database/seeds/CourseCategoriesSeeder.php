@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\TeacherCourse;
+use App\Models\CourseCategory;
 use Illuminate\Database\Seeder;
 
-class TeacherCoursesTableSeeder extends Seeder
+class CourseCategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class TeacherCoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(TeacherCourse::class, 5)->create();
+        factory(CourseCategory::class, 20)->create();
     }
 }
