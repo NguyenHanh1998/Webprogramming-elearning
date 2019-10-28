@@ -50,6 +50,10 @@ class CategoryTableSeeder extends Seeder
             'name' => 'Legal',
 			'description' => $faker->sentence(2)
         ]);
+		DB::table('categories')->insert([
+            'name' => 'DJ',
+			'description' => $faker->sentence(2)
+        ]);
 		
     }
 }
