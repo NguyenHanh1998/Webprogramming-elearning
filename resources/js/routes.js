@@ -1,5 +1,5 @@
-import viewsRoutes from './views';
+import courseRoutes from './views/course';
 
 export default [
-    ...viewsRoutes,
+    ...courseRoutes,
 ]

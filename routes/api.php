@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('signup', 'AuthController@register'); Route::post('login', 'AuthController@login');
 
-Route::group(['middleware' => 'jwt.auth'], function () { Route::get('auth', 'AuthController@user'); Route::post('logout', 'AuthController@logout'); });
+Route::group(['middleware' => 'jwt.auth'], function () { 
+    Route::get('auth', 'AuthController@user'); 
+    Route::post('logout', 'AuthController@logout'); 
+});
 
 Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
+
+$router->group(['prefix' => 'courses'], function (Router $router) {
+    $router->get('/', 'CourseController@index');
+});
