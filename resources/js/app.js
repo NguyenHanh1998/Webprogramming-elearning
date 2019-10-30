@@ -11,6 +11,12 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+
+import NavBar from './views/NavBar.vue';
 
 
 /**
@@ -26,6 +32,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueRouter);
 Vue.use(Element);
+Vue.use(BootstrapVue);
 
 import routers from './routes';
 
@@ -40,10 +47,12 @@ const router = new VueRouter({
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
-
-
 const app = new Vue({
     el: '#app',
+    components: {
+        'NavBar': NavBar
+    },
     router
 });
+
+

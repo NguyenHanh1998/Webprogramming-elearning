@@ -11,8 +11,6 @@
 |
 */
 
-
-$router->get('/', 'AuthController@testDB');
 /**
  * All router uri will render master.blade.php 
  */
