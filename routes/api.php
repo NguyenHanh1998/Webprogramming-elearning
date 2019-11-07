@@ -29,5 +29,17 @@ Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh'
 
 $router->group(['prefix' => 'courses'], function (Router $router) {
     $router->get('/', 'CourseController@index');
-    $router->post('new', 'CourseController@store');
+
 });
+
+//students
+Route::group(['middleware' => 'jwt.auth'], function() {
+    //GET
+    Route::get('/students', 'StudentController@index');
+});
+//teachers
+Route::group(['middleware' => 'jwt.auth'], function() {
+    //GET
+    Route::get('/teachers', 'TeacherController@index');
+});
+

@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $models = [
-            'Course'
+            'Course',
+            'User'
         ];
 
         foreach ($models as $model) {
