@@ -20,14 +20,39 @@ class CourseController extends Controller
         try {
             $result = $this->_courseRepository->all(['*'], $request['perPage']);
             return response()->json([
-                'status' => true,
                 'data' => $result
             ], Response::HTTP_OK);
         } catch (Exception $e) {
             return response()->json([
-                'status' => false,
-                'message' => $e->getMessage()
+                'error' => [
+                    'message' => 'Error on fetching',
+                    'interal_message' => $e->getMessage()
+                ]
             ]);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $params = $request->only(
+            'name',
+            'fee',
+            'cover',
+            'ava',
+            'description',
+            'requirement',
+            'learnable'
+        );
+        try {
+            $this->_courseRepository->create($params);
+            return response('', Response::HTTP_NO_CONTENT);
+        } catch (Exception $e) {
+            return response()->json([
+                'error' => [
+                    'message' => 'Create error',
+                    'internal_message' => $e->getMessage()
+                ]
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 }

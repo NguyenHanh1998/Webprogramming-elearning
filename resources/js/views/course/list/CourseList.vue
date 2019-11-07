@@ -5,12 +5,12 @@
     <b-card-group>
       <b-col v-for="(course, index) in line1" :key="index">
       <!-- mỗi một phần này là 1 card -->
-        <course-card :data="course"></course-card>
+        <CourseCard :data="course"></CourseCard>
       </b-col>
     </b-card-group>
     <b-card-group>
       <b-col v-for="(course, index) in line2" :key="index">
-        <course-card :data="course"></course-card>
+        <CourseCard :data="course"></CourseCard>
       </b-col>
     </b-card-group>
   </div>
@@ -28,7 +28,7 @@ export default {
     };
   },
   components: {
-    'course-card' : CourseCard
+    'CourseCard' : CourseCard
   },
   methods: {
     compute(courses) {
@@ -41,7 +41,6 @@ export default {
         axios.get('/api/courses' + '?perPage=6&page=' + page).then((response) => {
             this.loading = !response.data.status;
             this.courses = response.data.data.data;
-            console.log(response.data.data.data.slice(0,4));
             this.compute(this.courses);
         });
     }

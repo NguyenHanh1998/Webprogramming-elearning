@@ -29,4 +29,5 @@ Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh'
 
 $router->group(['prefix' => 'courses'], function (Router $router) {
     $router->get('/', 'CourseController@index');
+    $router->post('new', 'CourseController@store');
 });
