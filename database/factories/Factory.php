@@ -37,6 +37,7 @@ $factory->define(Course::class, function (Faker $faker) {
         'description' => json_encode($faker->sentences(6, false)),
         'requirement' => json_encode($faker->sentences(4, false)),
         'learnable' => json_encode($faker->sentences(10, false)),
+        'user_id' => $faker->numberBetween(3, 4)
     ];
 });
 
@@ -49,7 +50,7 @@ $factory->define(CourseCategory::class, function (Faker $faker) {
 
 $factory->define(StudentCourse::class, function (Faker $faker) {
     return [
-        'student_id' => 1,
+        'user_id' => 2,
         'course_id' => $faker->numberBetween(1,200),
 		'enrolled_date' => $faker->dateTimeBetween('-10 years', 'now')
     ];

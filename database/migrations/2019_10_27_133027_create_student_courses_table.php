@@ -14,10 +14,12 @@ class CreateStudentCoursesTable extends Migration
     public function up()
     {
         Schema::create('student_courses', function (Blueprint $table) {
-            $table->unsignedBigInteger('student_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_id');
-            $table->primary(['student_id', 'course_id']);
-            $table->foreign('student_id')->references('id')->on('users')
+            // $table->primary(['user_id', 'course_id']);
+            $table->unique(array('user_id', 'course_id'));
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('course_id')->references('id')->on('courses')
                 ->onUpdate('cascade')->onDelete('cascade');

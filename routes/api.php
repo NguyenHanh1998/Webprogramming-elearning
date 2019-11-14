@@ -43,3 +43,9 @@ Route::group(['middleware' => 'jwt.auth'], function() {
     Route::get('/teachers', 'TeacherController@index');
 });
 
+$router->group(['middleware' => 'jwt.auth'], function (Router $router) {
+    $router->group(['prefix' => 'teachers'], function (Router $router) {
+        $router->get('/{user_id}/courses', 'CourseController@userCourses');
+    });
+});
+

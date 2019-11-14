@@ -22,6 +22,7 @@ class CreateCoursesTable extends Migration
             $table->text('description');
             $table->text('requirement');
             $table->text('learnable');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
