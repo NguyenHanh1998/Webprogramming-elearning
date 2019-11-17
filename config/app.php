@@ -177,7 +177,8 @@ return [
 
         /* JWT auth class */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-
+        /* Cloudinary */
+        JD\Cloudder\CloudderServiceProvider::class,
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
     ],
 
 ];

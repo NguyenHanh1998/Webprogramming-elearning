@@ -38,26 +38,24 @@ class CourseController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $user_id)
     {
         $params = $request->only(
             'name',
             'fee',
-            'cover',
             'ava',
+            'cover',
             'description',
             'requirement',
             'learnable'
         );
+        // return response()->json(['data' => $params]);
         try {
-            $this->_courseRepository->create($params);
-            return response('', Response::HTTP_NO_CONTENT);
+            $this->_courseRepository->create($user_id, $params);
+            return response()->json(['data' => 'done'], Response::HTTP_CREATED);
         } catch (Exception $e) {
             return response()->json([
-                'error' => [
-                    'message' => 'Create error',
-                    'internal_message' => $e->getMessage()
-                ]
+                'error' => 'Create error' . $e->getMessage(),
             ], Response::HTTP_BAD_REQUEST);
         }
     }
