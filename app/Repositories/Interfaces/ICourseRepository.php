@@ -6,5 +6,5 @@ interface ICourseRepository
 {
     public function all($columns = ['*'], $perPage = 10);
 
-    public function create($params);
+    public function create($teacher_id, $params);
 }

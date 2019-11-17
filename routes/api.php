@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
 /*
@@ -42,10 +43,10 @@ Route::group(['middleware' => 'jwt.auth'], function() {
     //GET
     Route::get('/teachers', 'TeacherController@index');
 });
-
-$router->group(['middleware' => 'jwt.auth'], function (Router $router) {
-    $router->group(['prefix' => 'teachers'], function (Router $router) {
-        $router->get('/{user_id}/courses', 'CourseController@userCourses');
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::group(['prefix' => 'teachers'], function () {
+        Route::get('/{user_id}/courses', 'CourseController@userCourses');
+        Route::post('/{user_id}/courses/new', 'CourseController@store');
     });
 });
 
