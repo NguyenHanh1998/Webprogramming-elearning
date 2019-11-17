@@ -11,4 +11,6 @@ interface IUserRepository
     public function getListByRole($role, $columns = ['*'], $perPage = 10);
 
     public function getMyCourseList($user_id);
+
+    public function get($id);
 }

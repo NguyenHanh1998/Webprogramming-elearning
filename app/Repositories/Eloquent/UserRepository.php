@@ -36,6 +36,7 @@ class UserRepository extends Repository implements IUserRepository
     public function getListByRole($role, $columns = ['*'], $perPage = 10) {
         return $this->model->where('role', $role)->paginate($perPage, $columns);
     }
+    
 
     public function getMyCourseList($user_id)
     {
@@ -44,5 +45,10 @@ class UserRepository extends Repository implements IUserRepository
             return $user->studentCourses;
         else if($user->role == 2)
             return $user->teacherCourses;
+    }
+
+    public function get($id)
+    {
+        return $this->model->find($id);
     }
 }

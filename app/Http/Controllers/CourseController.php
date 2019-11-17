@@ -60,6 +60,13 @@ class CourseController extends Controller
         }
     }
 
+    public function enrolledStudent(Request $request, $user_id, $id)
+    {
+        return response()->json(['data' => [
+            'enrolled' => $this->_courseRepository->get($id)->courseStudents->count()
+        ]], 200);
+    }
+
     public function userCourses(Request $request, $user_id)
     {
         $tokenId = Auth::id();

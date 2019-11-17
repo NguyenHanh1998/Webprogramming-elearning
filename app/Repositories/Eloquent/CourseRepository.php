@@ -31,6 +31,11 @@ class CourseRepository extends Repository implements ICourseRepository
         }
     }
 
+    public function get($id)
+    {
+        return $this->model->find($id);
+    }
+
     protected function validateParams($params)
     {
         // upload file
