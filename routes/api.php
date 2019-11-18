@@ -28,8 +28,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
 
-$router->group(['prefix' => 'courses'], function (Router $router) {
-    $router->get('/', 'CourseController@index');
+Route::group(['prefix' => 'courses'], function () {
+    Route::get('/', 'CourseController@index');
+    Route::get('/{id}', 'CourseController@show');
 
 });
 
@@ -48,6 +49,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
         Route::get('/{user_id}/courses', 'CourseController@userCourses');
         Route::get('/{id}/statistics', 'TeacherController@statistics');
         Route::post('/{user_id}/courses/new', 'CourseController@store');
+        Route::patch('/{user_id}/courses/{id}', 'CourseController@update');
         Route::get('/{user_id}/courses/{id}/statics', 'CourseController@enrolledStudent');
     });
 });
