@@ -22,6 +22,11 @@ class Course extends Model
         'course_id', 'id', 'id');
     }
 
+    public function studentCourses()
+    {
+        return $this->hasMany('App\Models\StudentCourse');
+    }
+
     public function categories()
     {
         return $this->hasManyThrough(

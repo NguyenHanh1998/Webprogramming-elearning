@@ -43,19 +43,30 @@ class TeacherController extends Controller
         $courses = $user->teacherCourses;
         $courseCount = $courses->count();
         $categoryCount = [];
+        $students = 0;
+        $votes = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
         $income = 0;
         foreach ($courses as $course) {
             $categories = $course->categories;
             foreach ($categories as $category) {
                 if (!in_array($category, $categoryCount))
                     array_push($categoryCount, $category);
-            $income += $course->fee * 0.8;
+            }
+            $students += $course->courseStudents->count();
+            foreach ($course->courseStudents as $student) {
+                $income += $course->fee * 0.8;
+                foreach ($course->studentCourses as $value) {
+                    $votes[$value->vote] += 1;
+                    // array_push($votes, $value);
+                }
             }
         }
 
         return response()->json(['data' => [
             'courseCount' => $courseCount,
             'categoryCount' => count($categoryCount),
+            'follows' => $students,
+            'vote' => $votes,
             'income' => $income 
         ]], Response::HTTP_OK);
     }
