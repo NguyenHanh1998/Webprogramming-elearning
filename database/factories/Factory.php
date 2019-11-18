@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\CourseCategory;
 use App\Models\StudentCourse;
 use App\Models\TeacherCourse;
+use App\Models\User;
 use App\Models\Video;
 
 use Faker\Generator as Faker;
@@ -49,9 +50,12 @@ $factory->define(CourseCategory::class, function (Faker $faker) {
 });
 
 $factory->define(StudentCourse::class, function (Faker $faker) {
+    $students = User::where('role', '=', '1')->get();
+    $student = $students->random();
     return [
-        'user_id' => 2,
+        'user_id' => $student->id,
         'course_id' => $faker->numberBetween(1,200),
+        'vote' => $faker->numberBetween(1, 5),
 		'enrolled_date' => $faker->dateTimeBetween('-10 years', 'now')
     ];
 });
