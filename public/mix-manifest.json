@@ -1,4 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/main.js": "/js/main.js",
+    "/js/map.js": "/js/map.js",
+    "/js/mixitup.min.js": "/js/mixitup.min.js"
 }
