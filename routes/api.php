@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
@@ -15,6 +16,7 @@ use Illuminate\Routing\Router;
 |
 */
 
+//Auth
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -29,16 +31,16 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
 
-Route::group(['prefix' => 'courses'], function () {
-    Route::get('/', 'CourseController@index');
-    Route::get('/{id}', 'CourseController@show');
-});
 
 //students
 Route::group(['middleware' => 'jwt.auth'], function () {
-    //GET
-    Route::get('/students', 'StudentController@index');
+    Route::group(['prefix' => 'students'], function () {
+        //GET
+        Route::get('/', 'StudentController@index');
+    });
 });
+
+
 //teachers
 Route::group(['middleware' => 'jwt.auth'], function () {
     //GET
@@ -54,11 +56,16 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     });
 });
 
-//course
+//courses
 Route::group(['middleware' => 'jwt.auth'], function () {
     //GET
     Route::put('/courses/{id}', 'CourseController@update');
 });
+Route::group(['prefix' => 'courses'], function () {
+    Route::get('/', 'CourseController@index');
+    Route::get('/{id}', 'CourseController@show');
+});
+
 //categories
 Route::group(['middleware' => 'jwt.auth'], function () {
     //PUT
