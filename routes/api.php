@@ -19,11 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('signup', 'AuthController@register'); Route::post('login', 'AuthController@login');
+Route::post('signup', 'AuthController@register');
+Route::post('login', 'AuthController@login');
 
-Route::group(['middleware' => 'jwt.auth'], function () { 
-    Route::get('auth', 'AuthController@user'); 
-    Route::post('logout', 'AuthController@logout'); 
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('auth', 'AuthController@user');
+    Route::post('logout', 'AuthController@logout');
 });
 
 Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh');
@@ -31,16 +32,15 @@ Route::middleware('jwt.refresh')->get('/token/refresh', 'AuthController@refresh'
 Route::group(['prefix' => 'courses'], function () {
     Route::get('/', 'CourseController@index');
     Route::get('/{id}', 'CourseController@show');
-
 });
 
 //students
-Route::group(['middleware' => 'jwt.auth'], function() {
+Route::group(['middleware' => 'jwt.auth'], function () {
     //GET
     Route::get('/students', 'StudentController@index');
 });
 //teachers
-Route::group(['middleware' => 'jwt.auth'], function() {
+Route::group(['middleware' => 'jwt.auth'], function () {
     //GET
     Route::get('/teachers', 'TeacherController@index');
 });
@@ -54,3 +54,13 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     });
 });
 
+//course
+Route::group(['middleware' => 'jwt.auth'], function () {
+    //GET
+    Route::put('/courses/{id}', 'CourseController@update');
+});
+//categories
+Route::group(['middleware' => 'jwt.auth'], function () {
+    //PUT
+    Route::put('/categories/{id}', 'CategoryController@update');
+});
