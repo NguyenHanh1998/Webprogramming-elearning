@@ -11,54 +11,67 @@ use JD\Cloudder\Facades\Cloudder;
 
 class CourseRepository extends Repository implements ICourseRepository
 {
-    public function __construct(Course $model)
-    {
-        parent::__construct($model);
-    }
+	public function __construct(Course $model)
+	{
+		parent::__construct($model);
+	}
 
-    public function all($columns = ['*'], $perPage = 10)
-    {
-        return $this->model->paginate($perPage, $columns);
-    }
+	public function all($columns = ['*'], $perPage = 10)
+	{
+		return $this->model->paginate($perPage, $columns);
+	}
 
-    public function create($teacher_id, $params)
-    {
-        $teacher = User::find($teacher_id);
-        try {
-            $teacher->teacherCourses()->create($this->validateParams($params));
-        } catch (Exception $e) {
-            throw $e;
-        }
-    }
+	public function create($teacher_id, $params)
+	{
+		$teacher = User::find($teacher_id);
+		try {
+			$teacher->teacherCourses()->create($this->validateParams($params));
+		} catch (Exception $e) {
+			throw $e;
+		}
+	}
 
-    public function get($id)
-    {
-        return $this->model->find($id);
-    }
+	public function get($id)
+	{
+		return $this->model->find($id);
+	}
 
-    protected function validateParams($params)
-    {
-        // upload file
-        $params['description'] = json_encode($params['description']);
-        $params['requirement'] = json_encode($params['requirement']);
-        $params['learnable'] = json_encode($params['learnable']);
+	protected function validateParams($params)
+	{
+		// upload file
+		$params['description'] = json_encode($params['description']);
+		$params['requirement'] = json_encode($params['requirement']);
+		$params['learnable'] = json_encode($params['learnable']);
 
-        return $this->uploadImage($params);
-    }
+		return $this->uploadImage($params);
+	}
 
-    protected function uploadImage($params)
-    {
-        try {
-            Cloudder::upload($params['ava']);
-            $result = Cloudder::getResult();
-            $params['ava'] = $result['url'];
-            Cloudder::upload($params['cover']);
-            $result = Cloudder::getResult();
-            $params['ava'] = $result['url'];      
-        } catch (Exception $e) {
-            throw $e;
-        }
+	protected function uploadImage($params)
+	{
+		try {
+			Cloudder::upload($params['ava']);
+			$result = Cloudder::getResult();
+			$params['ava'] = $result['url'];
+			Cloudder::upload($params['cover']);
+			$result = Cloudder::getResult();
+			$params['ava'] = $result['url'];
+		} catch (Exception $e) {
+			throw $e;
+		}
 
-        return $params;
-    }
+		return $params;
+	}
+
+	public function update($id, $updateDetails)
+	{
+		$course = Course::find($id);
+		if ($course == null) {
+			return null;
+		} else {
+			$this->model->where('id', $id)
+				->update($updateDetails);
+
+			return $this->model->find($id);
+		}
+	}
 }
