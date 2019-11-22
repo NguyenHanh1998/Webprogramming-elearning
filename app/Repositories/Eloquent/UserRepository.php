@@ -51,4 +51,14 @@ class UserRepository extends Repository implements IUserRepository
     {
         return $this->model->find($id);
     }
+
+    public function destroy($id, $role) {
+        $user = $this->model->find($id);
+        if(!$user) return null;
+        else if($user->role != $role) return 'false';
+        else {
+            $user->delete();
+            return $user;
+        }
+    }
 }

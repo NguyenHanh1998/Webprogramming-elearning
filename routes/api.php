@@ -37,6 +37,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::group(['prefix' => 'students'], function () {
         //GET
         Route::get('/', 'StudentController@index');
+        Route::delete('/{id}', 'StudentController@destroy');
     });
 });
 
@@ -53,6 +54,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
         Route::post('/{user_id}/courses/new', 'CourseController@store');
         Route::patch('/{user_id}/courses/{id}', 'CourseController@update');
         Route::get('/{user_id}/courses/{id}/statics', 'CourseController@enrolledStudent');
+        Route::delete('/{id}', 'TeacherController@destroy');
     });
 });
 

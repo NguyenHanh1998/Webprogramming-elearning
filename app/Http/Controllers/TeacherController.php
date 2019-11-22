@@ -20,7 +20,7 @@ class TeacherController extends Controller
         $user = Auth::user();
         if ($user) {
             try {
-                $result = $this->_teacherRepository->getListByRole('1', ['*'], $request['perPage']);
+                $result = $this->_teacherRepository->getListByRole('2', ['*'], $request['perPage']);
                 return response()->json([
                     'status' => true,
                     'data' => $result
@@ -67,7 +67,37 @@ class TeacherController extends Controller
             'categoryCount' => count($categoryCount),
             'follows' => $students,
             'vote' => $votes,
-            'income' => $income 
+            'income' => $income
         ]], Response::HTTP_OK);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $user = Auth::user();
+        if (!$user)
+            return $this->error('Unauthorized');
+
+        try {
+            $result = $this->_teacherRepository->destroy($id, '2');
+            if ($result == null) {
+                return response()->json([
+                    'error' => ['message' => 'Cannot find teacher with id: ' . $id]
+                ], Response::HTTP_NOT_FOUND);
+            } else if($result == 'false') {
+                return response()->json([
+                    'error' => ['message' => 'Id '.$id.' is not for teacher' ]
+                ], Response::HTTP_BAD_REQUEST);
+            }
+            else {
+                return 'true';
+            }
+        } catch (Exeption $e) {
+            return response()->json([
+                'error' => [
+                    'message' => 'Update error',
+                    'internal_message' => $e->getMessage()
+                ]
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
